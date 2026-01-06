@@ -3,6 +3,9 @@
 
 本文档描述了我在 Natural Scenes Dataset (NSD) 上对 MindEye 方法的复现实验，包括已完成实验、部分完成实验以及由于计算资源限制未能完全复现的部分。
 
+<img width="711" height="450" alt="image" src="https://github.com/user-attachments/assets/7adcdca0-69a0-4045-914d-610ee421e89e" />
+
+
 #### 1. 数据集与实验设置
 
 所有实验均基于 Natural Scenes Dataset（NSD）。该数据集记录了被试在观看自然场景图像（来源于 MS-COCO）时的 fMRI 脑活动信号，是当前脑编码与脑解码研究中使用最广泛的数据集之一。
@@ -11,6 +14,7 @@
 Subject 1 的数据包含 15,724 个体素（voxels），已能充分验证模型在单被试条件下的性能表现。
 
 实验中使用的数据直接下载自作者在 HuggingFace 上公开的官方版本，因此数据的预处理流程、训练/测试划分方式均与 MindEye 原文及其相关工作保持一致。
+https://huggingface.co/datasets/pscotti/naturalscenesdataset/tree/main/webdataset_avg_split
 
 #### 2. 模型结构概述
 
@@ -22,18 +26,23 @@ Voxel-to-CLIP（Voxel2CLIP）网络负责将 fMRI 体素信号映射至 CLIP 表
 1. CLIP 隐藏层输出（257 × 768）：用于后续的图像重建任务。
 2. CLIP CLS token（768）：用于图像检索与脑检索任务。
 
-Voxel2CLIP 网络采用大规模多层 MLP 架构。当输出为 257 × 768 的 CLIP 隐藏层时，模型参数量约为 9.48 亿。由于该规模的模型从头训练成本极高，本实验直接使用作者在 HuggingFace 上公开的、基于 Subject 1 预训练 的模型权重。
+Voxel2CLIP 网络采用大规模多层 MLP 架构。当输出为 257 × 768 的 CLIP 隐藏层时，模型参数量约为 9.48 亿。由于该规模的模型从头训练成本极高，本实验直接使用在 HuggingFace 上公开的预训练的模型权重。
+https://huggingface.co/openai/clip-vit-large-patch14/tree/main
 
 ##### 2.2 Diffusion Prior
 
 Diffusion Prior 基于开源的 DALL·E 2 扩散先验模型，并针对脑信号条件生成任务进行了适配与修改。该模块负责将 Voxel2CLIP 预测得到的 CLIP 表征映射至扩散模型可用的潜在条件空间，并支持后续与 Versatile Diffusion 的集成。
 
-由于网络环境限制，本实验采用手动方式下载作者在 HuggingFace 上公开的 Diffusion Prior 及 Versatile Diffusion 权重。
-在具体实现中，Diffusion Prior 与 Voxel2CLIP 被封装为 BrainDiffusionPrior 模块，并分别支持使用 CLIP 隐藏层输出（Hidden Layer）或最终层输出（Final Layer）作为条件输入。
+由于网络环境限制，本实验采用手动方式下载作者在 HuggingFace 上公开的 Versatile Diffusion 权重。
+https://hf-mirror.com/shi-labs/versatile-diffusion/tree/main
+
+在具体实现中，Diffusion Prior 与 Voxel2CLIP 被封装为 BrainDiffusionPrior 模块，并分别支持使用 CLIP 隐藏层输出（Hidden Layer）或最终层输出（Final Layer）作为条件输入。可从 HuggingFace 上下载作者开源的，在受试 1 上训练得到的模型参数。
+https://huggingface.co/datasets/pscotti/naturalscenesdataset/tree/main/mindeye_models
 
 ##### 2.3 Stable Diffusion
 
 Stable Diffusion 主要用于 MindEye 的低级管道（Low-Level Pipeline），以 img2img 方式为图像重建提供结构与低频视觉信息。本实验同样直接使用作者在 HuggingFace 上开源的官方模型权重。
+https://huggingface.co/datasets/pscotti/naturalscenesdataset/tree/main/mindeye_models
 
 #### 3 已完成的复现实验
 ##### 3.1 图像检索与脑检索
@@ -42,7 +51,6 @@ Stable Diffusion 主要用于 MindEye 的低级管道（Low-Level Pipeline），
 下图展示了原论文中的实验结果：
 
 <img width="711" height="500" alt="image" src="https://github.com/user-attachments/assets/5f5d336c-ee98-49b4-ab82-c60d0c8d75bf" />
-
 
 下图为我在 Subject 1 上复现得到的实验结果，其中包括
 
