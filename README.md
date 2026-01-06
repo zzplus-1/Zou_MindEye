@@ -41,18 +41,18 @@ Stable Diffusion 主要用于 MindEye 的低级管道（Low-Level Pipeline），
 我成功复现了 MindEye 在 图像检索（Image Retrieval） 与 脑检索（Brain Retrieval） 任务上的实验结果。
 下图展示了原论文中的实验结果：
 
-<img width="1422" height="1054" alt="image" src="https://github.com/user-attachments/assets/5f5d336c-ee98-49b4-ab82-c60d0c8d75bf" />
+<img width="711" height="500" alt="image" src="https://github.com/user-attachments/assets/5f5d336c-ee98-49b4-ab82-c60d0c8d75bf" />
 
 
 下图为我在 Subject 1 上复现得到的实验结果，其中包括
 
-<img width="1326" height="576" alt="image-1" src="https://github.com/user-attachments/assets/6e8273b8-ea54-4804-a376-b064f43a030a" />
+<img width="711" height="250" alt="image-1" src="https://github.com/user-attachments/assets/6e8273b8-ea54-4804-a376-b064f43a030a" />
 
 1. 前向检索（Forward Retrieval）
-<img width="983" height="1027" alt="image-2" src="https://github.com/user-attachments/assets/0870d0ab-6cc9-471f-b17e-a392b70dd232" />
+<img width="711" height="800" alt="image-2" src="https://github.com/user-attachments/assets/0870d0ab-6cc9-471f-b17e-a392b70dd232" />
 
 2. 后向检索（Backward Retrieval）
-<img width="984" height="1065" alt="image-3" src="https://github.com/user-attachments/assets/225aa7ae-7cb4-4b0a-87c6-1287372350e5" />
+<img width="711" height="800" alt="image-3" src="https://github.com/user-attachments/assets/225aa7ae-7cb4-4b0a-87c6-1287372350e5" />
 
 从 Top-1 准确率 可以看出，本实验结果与原论文报告的性能基本一致。在视觉高度相似的候选图像集合中，模型仍能够稳定地检索出对应的目标图像，验证了 Voxel2CLIP 映射的有效性。
 
@@ -61,11 +61,11 @@ Stable Diffusion 主要用于 MindEye 的低级管道（Low-Level Pipeline），
 本实验完整复现了 MindEye 的 fMRI 到图像重建流程。
 下图为原论文中的重建结果示例：
 
-<img width="1419" height="600" alt="image-8" src="https://github.com/user-attachments/assets/fa826ca7-0419-4872-a764-d05d6dea9535" />
+<img width="711" height="300" alt="image-8" src="https://github.com/user-attachments/assets/fa826ca7-0419-4872-a764-d05d6dea9535" />
 
 下图为我在 Subject 1 上得到的重建结果：
 
-<img width="1285" height="1071" alt="image-4" src="https://github.com/user-attachments/assets/868a6cde-0500-426f-ac3f-c5b2d611dcdb" />
+<img width="711" height="600" alt="image-4" src="https://github.com/user-attachments/assets/868a6cde-0500-426f-ac3f-c5b2d611dcdb" />
 
 可以观察到，生成图像在整体结构、语义类别及主要视觉特征上与真实图像高度一致，整体重建质量达到了原论文所展示的实验水平。
 受时间限制，本次实验未进一步复现论文中其他被试或其他对比方法的重建结果。
@@ -74,22 +74,22 @@ Stable Diffusion 主要用于 MindEye 的低级管道（Low-Level Pipeline），
 
 我复现了原论文中的消融实验第一部分，原论文的表格如下：
 
-<img width="1690" height="635" alt="image-9" src="https://github.com/user-attachments/assets/ae5aa6b1-06e6-4c69-93a4-ec97cb301e29" />
+<img width="711" height="300" alt="image-9" src="https://github.com/user-attachments/assets/ae5aa6b1-06e6-4c69-93a4-ec97cb301e29" />
 
 
 受时间限制，本实验仅在 Subject 1 上进行了三组实验。其中：
 1. MindEye（Low-Level）表示图像重建从低级管道生成的模糊结构图像开始。
 
-<img width="1284" height="1058" alt="image-5" src="https://github.com/user-attachments/assets/a9877ae2-ceb8-4fda-9f2d-7d76de2a6bda" />
+<img width="711" height="600" alt="image-5" src="https://github.com/user-attachments/assets/a9877ae2-ceb8-4fda-9f2d-7d76de2a6bda" />
 
 2. MindEye（High-Level）表示图像重建仅基于高级语义管道进行。
 
-<img width="1285" height="1058" alt="image-6" src="https://github.com/user-attachments/assets/1208fec7-08e5-494b-a24b-0b83bfcf2816" />
+<img width="711" height="600" alt="image-6" src="https://github.com/user-attachments/assets/1208fec7-08e5-494b-a24b-0b83bfcf2816" />
 
 
 根据原论文使用的评价指标，我得到的定量实验结果如下：
 
-<img width="1567" height="326" alt="image" src="https://github.com/user-attachments/assets/82092a6a-bb69-4ab4-aa82-dee71831ac5a" />
+<img width="711" height="150" alt="image" src="https://github.com/user-attachments/assets/82092a6a-bb69-4ab4-aa82-dee71831ac5a" />
 
 整体趋势与原论文保持一致，低级管道在结构与低级视觉指标上具有明显优势，而高级管道更偏向语义一致性。
 
@@ -97,11 +97,11 @@ Stable Diffusion 主要用于 MindEye 的低级管道（Low-Level Pipeline），
 
 为完整复现原论文其余消融实验，需要从头训练多种不同结构与配置的模型，包括：
 
-<img width="1344" height="367" alt="image-10" src="https://github.com/user-attachments/assets/42c57696-753b-4018-996a-a6e1c78e6dc5" />
+<img width="711" height="180" alt="image-10" src="https://github.com/user-attachments/assets/42c57696-753b-4018-996a-a6e1c78e6dc5" />
 
-<img width="1228" height="364" alt="image-11" src="https://github.com/user-attachments/assets/15c585b3-7620-4e04-9b19-2dc74549c668" />
+<img width="711" height="210" alt="image-11" src="https://github.com/user-attachments/assets/15c585b3-7620-4e04-9b19-2dc74549c668" />
 
-<img width="1537" height="390" alt="image-12" src="https://github.com/user-attachments/assets/0eafada3-5f9e-47ff-bb33-205a943304dd" />
+<img width="711" height="170" alt="image-12" src="https://github.com/user-attachments/assets/0eafada3-5f9e-47ff-bb33-205a943304dd" />
 
 然而，MindEye 的主干网络参数规模约为 9.4 亿，且映射至 CLIP 隐藏层（257 × 768）后，显著增加了计算量与显存占用。
 
